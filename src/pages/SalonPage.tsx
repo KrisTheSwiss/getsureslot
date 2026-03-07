@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import StaffCard from "@/components/StaffCard";
+import sureslotWordmark from "@/assets/sureslot-wordmark.png";
 
 // Demo data
 const DEMO_SALON = {
@@ -25,8 +26,8 @@ const SalonPage = () => {
       {/* Header */}
       <nav className="border-b border-border">
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link to="/" className="font-display text-sm text-muted-foreground hover:text-foreground transition-colors">
-            ← Sureslot
+          <Link to="/" aria-label="Sureslot home" className="inline-flex items-center">
+            <img src={sureslotWordmark} alt="Sureslot logo" className="h-8 w-auto" loading="lazy" />
           </Link>
         </div>
       </nav>
@@ -62,3 +63,4 @@ const SalonPage = () => {
 };
 
 export default SalonPage;
+

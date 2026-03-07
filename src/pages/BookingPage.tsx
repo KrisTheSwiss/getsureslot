@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Calendar, Clock, ArrowLeft, Shield } from "lucide-react";
+import sureslotWordmark from "@/assets/sureslot-wordmark.png";
 
 const DEMO_STAFF: Record<string, { name: string; role: string; depositCents: number }> = {
   "1": { name: "Lena Meier", role: "Senior Artist", depositCents: 15000 },
@@ -28,13 +29,16 @@ const BookingPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <nav className="border-b border-border">
-        <div className="max-w-3xl mx-auto px-6 h-16 flex items-center">
+        <div className="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link
             to={`/s/${slug}`}
             className="font-body text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
           >
             <ArrowLeft className="w-4 h-4" />
             Back
+          </Link>
+          <Link to="/" aria-label="Sureslot home" className="inline-flex items-center">
+            <img src={sureslotWordmark} alt="Sureslot logo" className="h-7 w-auto" loading="lazy" />
           </Link>
         </div>
       </nav>
@@ -81,10 +85,7 @@ const BookingPage = () => {
 
             {/* Time */}
             {selectedDate && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
                 <label className="font-body text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4 flex items-center gap-2">
                   <Clock className="w-3.5 h-3.5" />
                   Select Time
@@ -109,10 +110,7 @@ const BookingPage = () => {
 
             {/* Email */}
             {selectedTime && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
                 <label className="font-body text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4 block">
                   Your Email
                 </label>
@@ -127,10 +125,7 @@ const BookingPage = () => {
             )}
 
             {selectedDate && selectedTime && email && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-              >
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                 <button
                   onClick={() => setStep("confirm")}
                   className="font-display text-sm uppercase tracking-wider px-8 py-4 bg-foreground text-background rounded-sm hover:opacity-90 transition-opacity"
@@ -211,3 +206,4 @@ const BookingPage = () => {
 };
 
 export default BookingPage;
+
