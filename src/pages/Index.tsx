@@ -1,27 +1,28 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Shield, Clock, CreditCard, Calendar } from "lucide-react";
+import sureslotWordmark from "@/assets/sureslot-wordmark.png";
 
 const features = [
   {
     icon: Shield,
-    title: "Deposit Protection",
-    desc: "Reduce no-shows with upfront deposits via Stripe Connect.",
+    title: "No-Show Protection",
+    desc: "Require a deposit before booking so empty slots stop draining your day.",
   },
   {
     icon: Calendar,
-    title: "Calendar Sync",
-    desc: "Real-time availability powered by Nylas calendar integration.",
-  },
-  {
-    icon: CreditCard,
-    title: "Direct Charges",
-    desc: "Payments go directly to each staff member's Stripe account.",
+    title: "Calendar Control",
+    desc: "Open only the hours you actually want to work, synced in real time.",
   },
   {
     icon: Clock,
-    title: "Multi-Tenant",
-    desc: "Each salon gets its own branded booking page and dashboard.",
+    title: "Reminder Sequence",
+    desc: "Automated reminders reduce forgetful no-shows before they hit your schedule.",
+  },
+  {
+    icon: CreditCard,
+    title: "Direct Payouts",
+    desc: "Deposits and payments go straight to each artist without payout friction.",
   },
 ];
 
@@ -31,8 +32,8 @@ const Index = () => {
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link to="/" className="font-display text-xl font-bold tracking-tight">
-            Sure<span className="text-accent-brand">slot</span>
+          <Link to="/" aria-label="Sureslot home" className="inline-flex items-center">
+            <img src={sureslotWordmark} alt="Sureslot logo" className="h-8 w-auto" loading="lazy" />
           </Link>
           <div className="flex items-center gap-6">
             <Link
@@ -61,21 +62,23 @@ const Index = () => {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             >
               <p className="font-body text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">
-                Booking Infrastructure
+                Protect Your Time
               </p>
               <h1 className="font-display text-5xl md:text-7xl font-bold leading-[0.9] tracking-tight mb-8">
-                Precision
+                Your skill is
                 <br />
-                booking for
+                world-class.
                 <br />
-                modern
+                Your time is
                 <br />
-                <span className="text-accent-brand">salons.</span>
+                finite.
+                <br />
+                <span className="text-accent-brand">Protect both.</span>
               </h1>
               <div className="swiss-divider mb-8" />
               <p className="font-body text-base text-muted-foreground max-w-md leading-relaxed">
-                Multi-tenant scheduling with deposit protection, calendar sync,
-                and direct payments — engineered with Swiss precision.
+                A no-show doesn&apos;t just cost you a deposit; it steals an hour of your life that you can
+                never get back.
               </p>
             </motion.div>
 
@@ -85,16 +88,19 @@ const Index = () => {
               transition={{ duration: 1, delay: 0.3 }}
               className="flex flex-col gap-1"
             >
-              {["01 — Create your salon", "02 — Add staff & services", "03 — Share your booking link", "04 — Collect deposits automatically"].map(
-                (step, i) => (
-                  <div
-                    key={i}
-                    className="py-5 border-b border-border font-display text-sm md:text-base tracking-wide text-muted-foreground hover:text-foreground transition-colors cursor-default"
-                  >
-                    {step}
-                  </div>
-                )
-              )}
+              {[
+                "01 — Set your no-show deposit",
+                "02 — Share your booking link",
+                "03 — Let reminders do the chasing",
+                "04 — Keep your day protected",
+              ].map((step, i) => (
+                <div
+                  key={i}
+                  className="py-5 border-b border-border font-display text-sm md:text-base tracking-wide text-muted-foreground hover:text-foreground transition-colors cursor-default"
+                >
+                  {step}
+                </div>
+              ))}
             </motion.div>
           </div>
         </div>
@@ -104,7 +110,7 @@ const Index = () => {
       <section className="py-24 px-6 border-t border-border">
         <div className="max-w-7xl mx-auto">
           <p className="font-body text-xs uppercase tracking-[0.3em] text-muted-foreground mb-12">
-            Core Features
+            Time Protection System
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-border">
             {features.map((f, i) => (
@@ -118,9 +124,7 @@ const Index = () => {
               >
                 <f.icon className="w-5 h-5 text-accent-brand" strokeWidth={1.5} />
                 <h3 className="font-display text-lg font-semibold">{f.title}</h3>
-                <p className="font-body text-sm text-muted-foreground leading-relaxed">
-                  {f.desc}
-                </p>
+                <p className="font-body text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -131,12 +135,12 @@ const Index = () => {
       <section className="py-24 px-6 border-t border-border">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="font-display text-3xl md:text-5xl font-bold tracking-tight mb-6">
-            Ready to eliminate
+            Protect your calendar,
             <br />
-            no-shows?
+            not just your revenue.
           </h2>
           <p className="font-body text-muted-foreground mb-10 max-w-md mx-auto">
-            Set up your salon in minutes. Start collecting deposits today.
+            Set up your booking flow in minutes and stop losing your best hours to no-shows.
           </p>
           <Link
             to="/demo"
@@ -150,11 +154,9 @@ const Index = () => {
       {/* Footer */}
       <footer className="border-t border-border py-12 px-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="font-display text-sm font-bold">
-            Sure<span className="text-accent-brand">slot</span>
-          </p>
+          <img src={sureslotWordmark} alt="Sureslot logo" className="h-7 w-auto" loading="lazy" />
           <p className="font-body text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Sureslot. Engineered with precision.
+            © {new Date().getFullYear()} Sureslot. Built to protect your time.
           </p>
         </div>
       </footer>
@@ -163,3 +165,4 @@ const Index = () => {
 };
 
 export default Index;
+
