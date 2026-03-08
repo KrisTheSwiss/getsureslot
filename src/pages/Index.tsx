@@ -131,6 +131,60 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Studio Owners */}
+      <section className="py-24 px-6 border-t border-border">
+        <div className="max-w-7xl mx-auto">
+          <p className="font-body text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">
+            For Studio Owners &amp; Managers
+          </p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            <div>
+              <h2 className="font-display text-3xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-6">
+                Scaling your studio shouldn&apos;t mean scaling your headaches.
+              </h2>
+              <div className="swiss-divider mb-6" />
+              <p className="font-body text-base text-muted-foreground max-w-md leading-relaxed mb-10">
+                Sureslot allows you to manage 2 to 20+ artists under one roof while ensuring every professional gets paid directly.
+              </p>
+              <Link
+                to="/demo"
+                className="inline-block font-display text-sm px-8 py-4 bg-accent-brand text-background rounded-sm hover:opacity-90 transition-opacity tracking-wide uppercase"
+              >
+                Schedule a White-Glove Onboarding
+              </Link>
+            </div>
+            <div className="flex flex-col gap-px bg-border">
+              {[
+                {
+                  title: "Centralized Manager Dashboard",
+                  desc: "One view to oversee every artist's bookings, deposits, and availability across your entire studio.",
+                },
+                {
+                  title: "Independent Artist Onboarding",
+                  desc: "Each artist sets their own schedule, deposit rules, and services — no bottleneck through management.",
+                },
+                {
+                  title: "Real-Time Availability for the Entire Shop",
+                  desc: "Clients see live openings for every artist in your studio from a single booking page.",
+                },
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.12, duration: 0.6 }}
+                  className="bg-background p-8"
+                >
+                  <h3 className="font-display text-lg font-semibold mb-2">{item.title}</h3>
+                  <p className="font-body text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-24 px-6 border-t border-border">
         <div className="max-w-7xl mx-auto text-center">
