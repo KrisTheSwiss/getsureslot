@@ -91,6 +91,7 @@ const PublicBookingPage = () => {
     checkAvailability();
   }, [selectedDate, staffMember]);
 
+  const handleConfirm = async () => {
     if (!staffId || !selectedDate || !selectedTime || !email) return;
     setSubmitting(true);
 
