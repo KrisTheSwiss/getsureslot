@@ -183,21 +183,33 @@ const PublicBookingPage = () => {
                 <label className="font-body text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4 flex items-center gap-2">
                   <Clock className="w-3.5 h-3.5" />
                   Select Time
+                  {checkingAvailability && (
+                    <span className="text-muted-foreground text-[10px] normal-case tracking-normal ml-1">
+                      Checking availability…
+                    </span>
+                  )}
                 </label>
                 <div className="mt-4 grid grid-cols-4 md:grid-cols-7 gap-2">
-                  {TIME_SLOTS.map((time) => (
-                    <button
-                      key={time}
-                      onClick={() => setSelectedTime(time)}
-                      className={`font-display text-sm py-3 border rounded-sm transition-all ${
-                        selectedTime === time
-                          ? "bg-foreground text-background border-foreground"
-                          : "border-border hover:border-foreground/30"
-                      }`}
-                    >
-                      {time}
-                    </button>
-                  ))}
+                  {TIME_SLOTS.map((time) => {
+                    const isBusy = busySlots.includes(time);
+                    return (
+                      <button
+                        key={time}
+                        onClick={() => !isBusy && setSelectedTime(time)}
+                        disabled={isBusy || checkingAvailability}
+                        className={`font-display text-sm py-3 border rounded-sm transition-all ${
+                          isBusy
+                            ? "border-border bg-muted text-muted-foreground line-through cursor-not-allowed opacity-50"
+                            : selectedTime === time
+                            ? "bg-foreground text-background border-foreground"
+                            : "border-border hover:border-foreground/30"
+                        }`}
+                        title={isBusy ? "Unavailable" : ""}
+                      >
+                        {time}
+                      </button>
+                    );
+                  })}
                 </div>
               </motion.div>
             )}
