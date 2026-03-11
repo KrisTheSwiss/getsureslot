@@ -38,7 +38,59 @@ const PublicBookingPage = () => {
     load();
   }, [staffId]);
 
-  const handleConfirm = async () => {
+  // Check free/busy when date changes
+  useEffect(() => {
+    if (!selectedDate || !staffMember?.nylas_grant_id) {
+      setBusySlots([]);
+      return;
+    }
+
+    const checkAvailability = async () => {
+      setCheckingAvailability(true);
+      setSelectedTime("");
+      try {
+        const dayStart = Math.floor(new Date(`${selectedDate}T00:00:00`).getTime() / 1000);
+        const dayEnd = Math.floor(new Date(`${selectedDate}T23:59:59`).getTime() / 1000);
+
+        const res = await supabase.functions.invoke("nylas-calendar", {
+          body: {
+            action: "checkFreeBusy",
+            grantId: staffMember.nylas_grant_id,
+            startTime: dayStart,
+            endTime: dayEnd,
+          },
+        });
+
+        if (res.data && Array.isArray(res.data)) {
+          const busy: string[] = [];
+          for (const entry of res.data) {
+            if (entry.time_slots) {
+              for (const slot of entry.time_slots) {
+                if (slot.status === "busy") {
+                  // Mark any TIME_SLOT that overlaps with a busy window
+                  for (const ts of TIME_SLOTS) {
+                    const slotStart = new Date(`${selectedDate}T${ts}:00`).getTime() / 1000;
+                    const slotEnd = slotStart + 3600; // 1-hour slots
+                    if (slotStart < slot.end_time && slotEnd > slot.start_time) {
+                      busy.push(ts);
+                    }
+                  }
+                }
+              }
+            }
+          }
+          setBusySlots([...new Set(busy)]);
+        }
+      } catch {
+        // If free/busy check fails, allow all slots
+        setBusySlots([]);
+      }
+      setCheckingAvailability(false);
+    };
+
+    checkAvailability();
+  }, [selectedDate, staffMember]);
+
     if (!staffId || !selectedDate || !selectedTime || !email) return;
     setSubmitting(true);
 
