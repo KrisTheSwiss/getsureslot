@@ -106,6 +106,24 @@ const DashboardPage = () => {
                   <ExternalLink className="w-3 h-3" />
                 </Link>
               </p>
+              <div className="mt-4">
+                <button
+                  onClick={async () => {
+                    const { data: { session } } = await supabase.auth.getSession();
+                    if (!session) return;
+                    const res = await supabase.functions.invoke("nylas-calendar", {
+                      body: { action: "getAuthUrl" },
+                    });
+                    if (res.data?.url) {
+                      window.open(res.data.url, "_blank");
+                    }
+                  }}
+                  className="font-display text-xs uppercase tracking-wider px-5 py-2.5 border border-border rounded-sm hover:bg-card transition-colors inline-flex items-center gap-2"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" />
+                  Sync Calendar
+                </button>
+              </div>
               <div className="swiss-divider my-8" />
 
               {/* Stats */}

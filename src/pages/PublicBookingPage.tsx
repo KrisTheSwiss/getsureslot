@@ -17,6 +17,8 @@ const PublicBookingPage = () => {
   const [email, setEmail] = useState("");
   const [step, setStep] = useState<"select" | "confirm" | "done">("select");
   const [submitting, setSubmitting] = useState(false);
+  const [busySlots, setBusySlots] = useState<string[]>([]);
+  const [checkingAvailability, setCheckingAvailability] = useState(false);
 
   useEffect(() => {
     const load = async () => {
