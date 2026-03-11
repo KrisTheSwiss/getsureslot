@@ -17,6 +17,8 @@ const PublicBookingPage = () => {
   const [email, setEmail] = useState("");
   const [step, setStep] = useState<"select" | "confirm" | "done">("select");
   const [submitting, setSubmitting] = useState(false);
+  const [busySlots, setBusySlots] = useState<string[]>([]);
+  const [checkingAvailability, setCheckingAvailability] = useState(false);
 
   useEffect(() => {
     const load = async () => {
@@ -35,6 +37,59 @@ const PublicBookingPage = () => {
     };
     load();
   }, [staffId]);
+
+  // Check free/busy when date changes
+  useEffect(() => {
+    if (!selectedDate || !staffMember?.nylas_grant_id) {
+      setBusySlots([]);
+      return;
+    }
+
+    const checkAvailability = async () => {
+      setCheckingAvailability(true);
+      setSelectedTime("");
+      try {
+        const dayStart = Math.floor(new Date(`${selectedDate}T00:00:00`).getTime() / 1000);
+        const dayEnd = Math.floor(new Date(`${selectedDate}T23:59:59`).getTime() / 1000);
+
+        const res = await supabase.functions.invoke("nylas-calendar", {
+          body: {
+            action: "checkFreeBusy",
+            grantId: staffMember.nylas_grant_id,
+            startTime: dayStart,
+            endTime: dayEnd,
+          },
+        });
+
+        if (res.data && Array.isArray(res.data)) {
+          const busy: string[] = [];
+          for (const entry of res.data) {
+            if (entry.time_slots) {
+              for (const slot of entry.time_slots) {
+                if (slot.status === "busy") {
+                  // Mark any TIME_SLOT that overlaps with a busy window
+                  for (const ts of TIME_SLOTS) {
+                    const slotStart = new Date(`${selectedDate}T${ts}:00`).getTime() / 1000;
+                    const slotEnd = slotStart + 3600; // 1-hour slots
+                    if (slotStart < slot.end_time && slotEnd > slot.start_time) {
+                      busy.push(ts);
+                    }
+                  }
+                }
+              }
+            }
+          }
+          setBusySlots([...new Set(busy)]);
+        }
+      } catch {
+        // If free/busy check fails, allow all slots
+        setBusySlots([]);
+      }
+      setCheckingAvailability(false);
+    };
+
+    checkAvailability();
+  }, [selectedDate, staffMember]);
 
   const handleConfirm = async () => {
     if (!staffId || !selectedDate || !selectedTime || !email) return;
@@ -128,21 +183,33 @@ const PublicBookingPage = () => {
                 <label className="font-body text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4 flex items-center gap-2">
                   <Clock className="w-3.5 h-3.5" />
                   Select Time
+                  {checkingAvailability && (
+                    <span className="text-muted-foreground text-[10px] normal-case tracking-normal ml-1">
+                      Checking availability…
+                    </span>
+                  )}
                 </label>
                 <div className="mt-4 grid grid-cols-4 md:grid-cols-7 gap-2">
-                  {TIME_SLOTS.map((time) => (
-                    <button
-                      key={time}
-                      onClick={() => setSelectedTime(time)}
-                      className={`font-display text-sm py-3 border rounded-sm transition-all ${
-                        selectedTime === time
-                          ? "bg-foreground text-background border-foreground"
-                          : "border-border hover:border-foreground/30"
-                      }`}
-                    >
-                      {time}
-                    </button>
-                  ))}
+                  {TIME_SLOTS.map((time) => {
+                    const isBusy = busySlots.includes(time);
+                    return (
+                      <button
+                        key={time}
+                        onClick={() => !isBusy && setSelectedTime(time)}
+                        disabled={isBusy || checkingAvailability}
+                        className={`font-display text-sm py-3 border rounded-sm transition-all ${
+                          isBusy
+                            ? "border-border bg-muted text-muted-foreground line-through cursor-not-allowed opacity-50"
+                            : selectedTime === time
+                            ? "bg-foreground text-background border-foreground"
+                            : "border-border hover:border-foreground/30"
+                        }`}
+                        title={isBusy ? "Unavailable" : ""}
+                      >
+                        {time}
+                      </button>
+                    );
+                  })}
                 </div>
               </motion.div>
             )}

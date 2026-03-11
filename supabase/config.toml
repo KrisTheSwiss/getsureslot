@@ -1,1 +1,4 @@
 project_id = "kftxmicxrdlqckpplgoy"
+
+[functions.nylas-calendar]
+verify_jwt = false
