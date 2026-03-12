@@ -156,7 +156,7 @@ const ManageBookingPage = () => {
                 <p className="font-body text-sm text-destructive font-medium">This booking has been cancelled.</p>
                 {cancelled && (
                   <p className="font-body text-xs text-muted-foreground mt-1">
-                    A refund of CHF {refundAmount} (minus CHF 10 platform fee) is being processed.
+                    A refund of ${refundAmount} (minus $10 platform fee) is being processed.
                   </p>
                 )}
               </div>
