@@ -302,15 +302,30 @@ const PublicBookingPage = () => {
               <span className="text-accent-foreground font-display text-xl">✓</span>
             </div>
             <h2 className="font-display text-2xl font-bold mb-3">Booking Confirmed</h2>
-            <p className="font-body text-sm text-muted-foreground mb-8 max-w-sm mx-auto">
+            {bookingRef && (
+              <p className="font-mono text-2xl font-bold tracking-wider text-foreground mb-4">
+                {bookingRef}
+              </p>
+            )}
+            <p className="font-body text-sm text-muted-foreground mb-4 max-w-sm mx-auto">
               A confirmation has been sent to {email}. Your deposit of CHF {depositCHF} has been processed.
             </p>
-            <Link
-              to="/"
-              className="font-display text-sm uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors"
-            >
-              ← Back to Sureslot
-            </Link>
+            {bookingRef && (
+              <Link
+                to={`/manage/${bookingRef}`}
+                className="font-body text-sm text-muted-foreground underline hover:text-foreground transition-colors mb-8 inline-block"
+              >
+                Manage or cancel this booking →
+              </Link>
+            )}
+            <div className="mt-6">
+              <Link
+                to="/"
+                className="font-display text-sm uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors"
+              >
+                ← Back to Sureslot
+              </Link>
+            </div>
           </motion.div>
         )}
       </div>

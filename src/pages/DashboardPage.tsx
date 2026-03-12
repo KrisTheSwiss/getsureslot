@@ -157,6 +157,18 @@ const DashboardPage = () => {
               </div>
               <div className="swiss-divider my-8" />
 
+              {/* Export */}
+              <div className="mb-8">
+                <button
+                  onClick={handleExportCSV}
+                  disabled={!bookings.length}
+                  className="font-display text-xs uppercase tracking-wider px-5 py-2.5 border border-border rounded-sm hover:bg-card transition-colors inline-flex items-center gap-2 disabled:opacity-50"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  Download for Bookkeeper
+                </button>
+              </div>
+
               {/* Stats */}
               <div className="grid grid-cols-2 gap-px bg-border mb-12">
                 <div className="bg-background p-6">
