@@ -2,3 +2,12 @@ project_id = "kftxmicxrdlqckpplgoy"
 
 [functions.nylas-calendar]
 verify_jwt = false
+
+[functions.create-deposit-checkout]
+verify_jwt = false
+
+[functions.process-refund]
+verify_jwt = false
+
+[functions.confirm-payment]
+verify_jwt = false

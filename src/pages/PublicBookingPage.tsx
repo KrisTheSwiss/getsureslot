@@ -99,15 +99,30 @@ const PublicBookingPage = () => {
 
     const startTime = new Date(`${selectedDate}T${selectedTime}:00`).toISOString();
 
-    const { data, error } = await supabase.from("bookings").insert({
-      staff_id: staffId,
-      client_email: email,
-      start_time: startTime,
-    }).select("reference_number").single();
+    try {
+      const res = await supabase.functions.invoke("create-deposit-checkout", {
+        body: {
+          staffId,
+          clientEmail: email,
+          startTime,
+          selectedDate,
+          selectedTime,
+        },
+      });
 
-    if (!error && data) {
-      setBookingRef((data as any).reference_number || "");
-      setStep("done");
+      if (res.data?.url) {
+        // Redirect to Stripe Checkout
+        window.location.href = res.data.url;
+        return;
+      }
+
+      // Fallback if no URL returned
+      if (res.data?.referenceNumber) {
+        setBookingRef(res.data.referenceNumber);
+        setStep("done");
+      }
+    } catch {
+      // silent
     }
     setSubmitting(false);
   };
