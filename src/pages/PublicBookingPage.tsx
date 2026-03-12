@@ -234,10 +234,22 @@ const PublicBookingPage = () => {
             )}
 
             {selectedDate && selectedTime && email && (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={agreedToPolicy}
+                    onChange={(e) => setAgreedToPolicy(e.target.checked)}
+                    className="mt-1 h-4 w-4 rounded-sm border border-border accent-foreground"
+                  />
+                  <span className="font-body text-xs text-muted-foreground leading-relaxed">
+                    I agree to the 24-hour cancellation policy. Deposits are only refundable if cancelled more than 24 hours before the appointment.
+                  </span>
+                </label>
                 <button
                   onClick={() => setStep("confirm")}
-                  className="font-display text-sm uppercase tracking-wider px-8 py-4 bg-foreground text-background rounded-sm hover:opacity-90 transition-opacity"
+                  disabled={!agreedToPolicy}
+                  className="font-display text-sm uppercase tracking-wider px-8 py-4 bg-foreground text-background rounded-sm hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Continue to Deposit
                 </button>
