@@ -21,10 +21,11 @@ const DashboardPage = () => {
       // In production, staff would link to auth user
       const { data: salons } = await supabase
         .from("salons")
-        .select("id")
+        .select("id, name")
         .eq("owner_id", user.id);
 
       if (!salons?.length) { setLoading(false); return; }
+      setSalonName(salons[0].name);
 
       const { data: staffData } = await supabase
         .from("staff")
