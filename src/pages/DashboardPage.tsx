@@ -50,10 +50,6 @@ const DashboardPage = () => {
     init();
   }, [navigate]);
 
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    navigate("/login");
-  };
 
   const handleExportCSV = () => {
     if (!bookings.length || !staffProfile) return;
