@@ -31,6 +31,8 @@ const App = () => (
           <Route path="/book/:staffId" element={<PublicBookingPage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/dashboard/staff" element={<DashboardStaffPage />} />
+          <Route path="/dashboard/bookings" element={<DashboardPage />} />
           <Route path="/login" element={<AuthPage />} />
           <Route path="/manage/:referenceNumber" element={<ManageBookingPage />} />
           <Route path="/booking-success" element={<BookingSuccessPage />} />
