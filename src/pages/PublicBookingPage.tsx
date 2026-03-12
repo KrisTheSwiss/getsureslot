@@ -151,7 +151,7 @@ const PublicBookingPage = () => {
     );
   }
 
-  const depositCHF = (staffMember.deposit_amount_cents / 100).toFixed(0);
+  const depositUSD = (staffMember.deposit_amount_cents / 100).toFixed(0);
 
   return (
     <div className="min-h-screen bg-background">
@@ -173,7 +173,7 @@ const PublicBookingPage = () => {
             {staffMember.name}
           </h1>
           <p className="font-body text-sm text-muted-foreground mb-2">
-            Deposit: CHF {depositCHF}
+            Deposit: ${depositUSD}
           </p>
           <div className="swiss-divider my-8" />
         </motion.div>
@@ -293,7 +293,7 @@ const PublicBookingPage = () => {
                 <div className="swiss-divider" />
                 <div className="flex justify-between font-display font-semibold">
                   <span>Deposit Required</span>
-                  <span>CHF {depositCHF}</span>
+                  <span>${depositUSD}</span>
                 </div>
               </div>
               <div className="flex items-start gap-2 text-xs text-muted-foreground">
@@ -323,7 +323,7 @@ const PublicBookingPage = () => {
               </p>
             )}
             <p className="font-body text-sm text-muted-foreground mb-4 max-w-sm mx-auto">
-              A confirmation has been sent to {email}. Your deposit of CHF {depositCHF} has been processed.
+              A confirmation has been sent to {email}. Your deposit of ${depositUSD} has been processed.
             </p>
             {bookingRef && (
               <Link

@@ -8,7 +8,7 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const PLATFORM_FEE_CENTS = 1000; // $10 / CHF 10
+const PLATFORM_FEE_CENTS = 1000; // $10
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {

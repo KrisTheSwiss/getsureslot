@@ -34,7 +34,7 @@ const StaffCard = ({ member, index, salonSlug }: StaffCardProps) => {
         <p className="font-body text-sm text-muted-foreground mb-4">{member.role}</p>
         <div className="flex items-center justify-between">
           <span className="font-body text-xs text-muted-foreground">
-            Deposit: CHF {(member.depositCents / 100).toFixed(0)}
+            Deposit: ${(member.depositCents / 100).toFixed(0)}
           </span>
           <span className="font-display text-xs uppercase tracking-wider text-accent-brand opacity-0 group-hover:opacity-100 transition-opacity">
             Book →

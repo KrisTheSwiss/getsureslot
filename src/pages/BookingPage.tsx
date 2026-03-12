@@ -161,7 +161,7 @@ const BookingPage = () => {
                 <div className="swiss-divider" />
                 <div className="flex justify-between font-display font-semibold">
                   <span>Deposit Required</span>
-                  <span>CHF {(staff.depositCents / 100).toFixed(0)}</span>
+                  <span>${(staff.depositCents / 100).toFixed(0)}</span>
                 </div>
               </div>
               <div className="flex items-start gap-2 text-xs text-muted-foreground">
@@ -189,7 +189,7 @@ const BookingPage = () => {
             </div>
             <h2 className="font-display text-2xl font-bold mb-3">Booking Confirmed</h2>
             <p className="font-body text-sm text-muted-foreground mb-8 max-w-sm mx-auto">
-              A confirmation has been sent to {email}. Your deposit of CHF{" "}
+              A confirmation has been sent to {email}. Your deposit of ${" "}
               {(staff.depositCents / 100).toFixed(0)} has been processed.
             </p>
             <Link

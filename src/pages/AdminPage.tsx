@@ -115,7 +115,7 @@ const AdminPage = () => {
                 </div>
                 <div className="bg-background p-6">
                   <p className="font-display text-2xl font-bold">
-                    CHF {bookings.reduce((sum, b) => {
+                    ${bookings.reduce((sum, b) => {
                       const s = staff.find((st) => st.id === b.staff_id);
                       return sum + (s?.deposit_amount_cents || 0);
                     }, 0) / 100}
@@ -137,7 +137,7 @@ const AdminPage = () => {
                       <div key={member.id} className="bg-background p-6">
                         <h3 className="font-display text-base font-semibold mb-1">{member.name}</h3>
                         <p className="font-body text-xs text-muted-foreground">
-                          Deposit: CHF {(member.deposit_amount_cents / 100).toFixed(0)}
+                          Deposit: ${(member.deposit_amount_cents / 100).toFixed(0)}
                         </p>
                         <p className="font-body text-xs text-muted-foreground mt-1">
                           Book link:{" "}

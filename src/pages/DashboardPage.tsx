@@ -178,7 +178,7 @@ const DashboardPage = () => {
                 </div>
                 <div className="bg-background p-6">
                   <p className="font-display text-2xl font-bold">
-                    CHF {(staffProfile.deposit_amount_cents / 100).toFixed(0)}
+                    ${(staffProfile.deposit_amount_cents / 100).toFixed(0)}
                   </p>
                   <p className="font-body text-xs text-muted-foreground uppercase tracking-wider">Deposit Amount</p>
                 </div>
