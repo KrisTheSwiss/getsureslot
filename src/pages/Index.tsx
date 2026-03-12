@@ -164,7 +164,7 @@ const Index = () => {
                 Sureslot allows you to manage 2 to 20+ artists under one roof while ensuring every professional gets paid directly.
               </p>
               <Link
-                to="/demo"
+                to={demoLink}
                 className="inline-block font-display text-sm px-8 py-4 bg-accent-brand text-background rounded-sm hover:opacity-90 transition-opacity tracking-wide uppercase"
               >
                 Schedule a White-Glove Onboarding
