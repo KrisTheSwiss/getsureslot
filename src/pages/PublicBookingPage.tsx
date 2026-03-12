@@ -94,18 +94,19 @@ const PublicBookingPage = () => {
   }, [selectedDate, staffMember]);
 
   const handleConfirm = async () => {
-    if (!staffId || !selectedDate || !selectedTime || !email) return;
+    if (!staffId || !selectedDate || !selectedTime || !email || !agreedToPolicy) return;
     setSubmitting(true);
 
     const startTime = new Date(`${selectedDate}T${selectedTime}:00`).toISOString();
 
-    const { error } = await supabase.from("bookings").insert({
+    const { data, error } = await supabase.from("bookings").insert({
       staff_id: staffId,
       client_email: email,
       start_time: startTime,
-    });
+    }).select("reference_number").single();
 
-    if (!error) {
+    if (!error && data) {
+      setBookingRef((data as any).reference_number || "");
       setStep("done");
     }
     setSubmitting(false);
