@@ -293,7 +293,7 @@ const PublicBookingPage = () => {
                 <div className="swiss-divider" />
                 <div className="flex justify-between font-display font-semibold">
                   <span>Deposit Required</span>
-                  <span>CHF {depositCHF}</span>
+                  <span>${depositUSD}</span>
                 </div>
               </div>
               <div className="flex items-start gap-2 text-xs text-muted-foreground">
