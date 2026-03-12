@@ -135,7 +135,7 @@ const ManageBookingPage = () => {
               <div className="swiss-divider" />
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Deposit Paid</span>
-                <span className="font-display font-semibold">CHF {(depositCents / 100).toFixed(0)}</span>
+                <span className="font-display font-semibold">${(depositCents / 100).toFixed(0)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Status</span>
