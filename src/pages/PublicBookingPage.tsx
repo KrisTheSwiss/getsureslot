@@ -151,7 +151,7 @@ const PublicBookingPage = () => {
     );
   }
 
-  const depositCHF = (staffMember.deposit_amount_cents / 100).toFixed(0);
+  const depositUSD = (staffMember.deposit_amount_cents / 100).toFixed(0);
 
   return (
     <div className="min-h-screen bg-background">
