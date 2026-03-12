@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Calendar, LogOut, ExternalLink, RefreshCw, Download } from "lucide-react";
+import { Calendar, ExternalLink, RefreshCw, Download } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import sureslotWordmark from "@/assets/sureslot-wordmark.png";
+import DashboardLayout from "@/components/DashboardLayout";
 
 const DashboardPage = () => {
   const navigate = useNavigate();
@@ -50,10 +50,6 @@ const DashboardPage = () => {
     init();
   }, [navigate]);
 
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    navigate("/login");
-  };
 
   const handleExportCSV = () => {
     if (!bookings.length || !staffProfile) return;
@@ -86,9 +82,11 @@ const DashboardPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <p className="font-body text-sm text-muted-foreground">Loading…</p>
-      </div>
+      <DashboardLayout>
+        <div className="flex items-center justify-center py-20">
+          <p className="font-body text-sm text-muted-foreground">Loading…</p>
+        </div>
+      </DashboardLayout>
     );
   }
 
@@ -96,30 +94,16 @@ const DashboardPage = () => {
   const pastBookings = bookings.filter((b) => new Date(b.start_time) < new Date());
 
   return (
-    <div className="min-h-screen bg-background">
-      <nav className="border-b border-border">
-        <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link to="/" className="inline-flex items-center">
-            <img src={sureslotWordmark} alt="Sureslot" className="h-7 w-auto" />
-          </Link>
-          <div className="flex items-center gap-4">
-            <span className="font-body text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              Artist Dashboard
-            </span>
-            <button onClick={handleSignOut} className="text-muted-foreground hover:text-foreground transition-colors">
-              <LogOut className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-      </nav>
-
+    <DashboardLayout>
       <div className="max-w-4xl mx-auto px-6 py-12">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           {!staffProfile ? (
             <div className="text-center py-20">
               <h1 className="font-display text-3xl font-bold mb-4">No Profile Found</h1>
               <p className="font-body text-sm text-muted-foreground">
-                Your artist profile hasn't been set up yet. Ask your salon owner to add you.
+                Your artist profile hasn't been set up yet. Go to{" "}
+                <Link to="/dashboard/staff" className="underline hover:text-foreground">Staff</Link>{" "}
+                to add your first artist.
               </p>
             </div>
           ) : (
@@ -241,7 +225,7 @@ const DashboardPage = () => {
           )}
         </motion.div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 };
 
