@@ -225,7 +225,7 @@ const DashboardPage = () => {
           )}
         </motion.div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 };
 

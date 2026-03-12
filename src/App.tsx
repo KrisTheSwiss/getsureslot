@@ -9,9 +9,9 @@ import BookingPage from "./pages/BookingPage";
 import PublicBookingPage from "./pages/PublicBookingPage";
 import AdminPage from "./pages/AdminPage";
 import DashboardPage from "./pages/DashboardPage";
+import DashboardStaffPage from "./pages/DashboardStaffPage";
 import AuthPage from "./pages/AuthPage";
 import ManageBookingPage from "./pages/ManageBookingPage";
-import BookingSuccessPage from "./pages/BookingSuccessPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
