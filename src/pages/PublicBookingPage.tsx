@@ -323,7 +323,7 @@ const PublicBookingPage = () => {
               </p>
             )}
             <p className="font-body text-sm text-muted-foreground mb-4 max-w-sm mx-auto">
-              A confirmation has been sent to {email}. Your deposit of CHF {depositCHF} has been processed.
+              A confirmation has been sent to {email}. Your deposit of ${depositUSD} has been processed.
             </p>
             {bookingRef && (
               <Link

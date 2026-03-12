@@ -78,7 +78,7 @@ serve(async (req) => {
       line_items: [
         {
           price_data: {
-            currency: "chf",
+            currency: "usd",
             unit_amount: depositCents,
             product_data: {
               name: `Deposit — ${staff.name} at ${salonName}`,

@@ -165,7 +165,7 @@ const ManageBookingPage = () => {
             {canCancel && (
               <div className="space-y-3">
                 <p className="font-body text-xs text-muted-foreground">
-                  You may cancel and receive a refund of <strong>CHF {refundAmount}</strong> (deposit minus CHF 10 platform fee).
+                  You may cancel and receive a refund of <strong>${refundAmount}</strong> (deposit minus $10 platform fee).
                 </p>
                 <button
                   onClick={handleCancel}

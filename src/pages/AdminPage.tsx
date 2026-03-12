@@ -137,7 +137,7 @@ const AdminPage = () => {
                       <div key={member.id} className="bg-background p-6">
                         <h3 className="font-display text-base font-semibold mb-1">{member.name}</h3>
                         <p className="font-body text-xs text-muted-foreground">
-                          Deposit: CHF {(member.deposit_amount_cents / 100).toFixed(0)}
+                          Deposit: ${(member.deposit_amount_cents / 100).toFixed(0)}
                         </p>
                         <p className="font-body text-xs text-muted-foreground mt-1">
                           Book link:{" "}
