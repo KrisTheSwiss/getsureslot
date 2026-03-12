@@ -173,7 +173,7 @@ const PublicBookingPage = () => {
             {staffMember.name}
           </h1>
           <p className="font-body text-sm text-muted-foreground mb-2">
-            Deposit: CHF {depositCHF}
+            Deposit: ${depositUSD}
           </p>
           <div className="swiss-divider my-8" />
         </motion.div>
