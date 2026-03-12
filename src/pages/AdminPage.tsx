@@ -115,7 +115,7 @@ const AdminPage = () => {
                 </div>
                 <div className="bg-background p-6">
                   <p className="font-display text-2xl font-bold">
-                    CHF {bookings.reduce((sum, b) => {
+                    ${bookings.reduce((sum, b) => {
                       const s = staff.find((st) => st.id === b.staff_id);
                       return sum + (s?.deposit_amount_cents || 0);
                     }, 0) / 100}
