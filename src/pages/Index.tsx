@@ -1,6 +1,8 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Shield, Clock, CreditCard, Calendar } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import sureslotWordmark from "@/assets/sureslot-wordmark.png";
 
 const features = [
