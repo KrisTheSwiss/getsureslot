@@ -214,7 +214,7 @@ const Index = () => {
             Set up your booking flow in minutes and stop losing your best hours to no-shows.
           </p>
           <Link
-            to="/demo"
+            to={demoLink}
             className="inline-block font-display text-sm px-8 py-4 bg-foreground text-background rounded-sm hover:opacity-90 transition-opacity tracking-wide uppercase"
           >
             View Demo Salon
