@@ -10,6 +10,7 @@ import PublicBookingPage from "./pages/PublicBookingPage";
 import AdminPage from "./pages/AdminPage";
 import DashboardPage from "./pages/DashboardPage";
 import AuthPage from "./pages/AuthPage";
+import ManageBookingPage from "./pages/ManageBookingPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/login" element={<AuthPage />} />
+          <Route path="/manage/:referenceNumber" element={<ManageBookingPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

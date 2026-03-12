@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Calendar, LogOut, ExternalLink, RefreshCw } from "lucide-react";
+import { Calendar, LogOut, ExternalLink, RefreshCw, Download } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import sureslotWordmark from "@/assets/sureslot-wordmark.png";
 
 const DashboardPage = () => {
   const navigate = useNavigate();
   const [staffProfile, setStaffProfile] = useState<any>(null);
+  const [salonName, setSalonName] = useState("");
   const [bookings, setBookings] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -20,10 +21,11 @@ const DashboardPage = () => {
       // In production, staff would link to auth user
       const { data: salons } = await supabase
         .from("salons")
-        .select("id")
+        .select("id, name")
         .eq("owner_id", user.id);
 
       if (!salons?.length) { setLoading(false); return; }
+      setSalonName(salons[0].name);
 
       const { data: staffData } = await supabase
         .from("staff")
@@ -51,6 +53,35 @@ const DashboardPage = () => {
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     navigate("/login");
+  };
+
+  const handleExportCSV = () => {
+    if (!bookings.length || !staffProfile) return;
+    const PLATFORM_FEE_CENTS = 1000;
+    const headers = ["Date", "Booking_Ref", "Salon_Name", "Artist_Name", "Client_Email", "Deposit_Amount", "Sureslot_Fee", "Net_Payout"];
+    const rows = bookings.map((b) => {
+      const deposit = staffProfile.deposit_amount_cents / 100;
+      const fee = PLATFORM_FEE_CENTS / 100;
+      const net = deposit - fee;
+      return [
+        new Date(b.start_time).toLocaleDateString(),
+        (b as any).reference_number || "—",
+        salonName,
+        staffProfile.name,
+        b.client_email,
+        deposit.toFixed(2),
+        fee.toFixed(2),
+        net.toFixed(2),
+      ].join(",");
+    });
+    const csv = [headers.join(","), ...rows].join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `sureslot-export-${new Date().toISOString().split("T")[0]}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   if (loading) {
@@ -126,6 +157,18 @@ const DashboardPage = () => {
               </div>
               <div className="swiss-divider my-8" />
 
+              {/* Export */}
+              <div className="mb-8">
+                <button
+                  onClick={handleExportCSV}
+                  disabled={!bookings.length}
+                  className="font-display text-xs uppercase tracking-wider px-5 py-2.5 border border-border rounded-sm hover:bg-card transition-colors inline-flex items-center gap-2 disabled:opacity-50"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  Download for Bookkeeper
+                </button>
+              </div>
+
               {/* Stats */}
               <div className="grid grid-cols-2 gap-px bg-border mb-12">
                 <div className="bg-background p-6">
@@ -151,6 +194,9 @@ const DashboardPage = () => {
                     {upcomingBookings.map((b) => (
                       <div key={b.id} className="bg-card border border-border p-4 rounded-sm flex items-center justify-between">
                         <div>
+                          {(b as any).reference_number && (
+                            <p className="font-mono text-xs text-muted-foreground mb-0.5">{(b as any).reference_number}</p>
+                          )}
                           <p className="font-display text-sm font-semibold">
                             {new Date(b.start_time).toLocaleDateString()} at{" "}
                             {new Date(b.start_time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}

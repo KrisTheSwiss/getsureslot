@@ -15,6 +15,8 @@ const PublicBookingPage = () => {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [email, setEmail] = useState("");
+  const [agreedToPolicy, setAgreedToPolicy] = useState(false);
+  const [bookingRef, setBookingRef] = useState("");
   const [step, setStep] = useState<"select" | "confirm" | "done">("select");
   const [submitting, setSubmitting] = useState(false);
   const [busySlots, setBusySlots] = useState<string[]>([]);
@@ -92,18 +94,19 @@ const PublicBookingPage = () => {
   }, [selectedDate, staffMember]);
 
   const handleConfirm = async () => {
-    if (!staffId || !selectedDate || !selectedTime || !email) return;
+    if (!staffId || !selectedDate || !selectedTime || !email || !agreedToPolicy) return;
     setSubmitting(true);
 
     const startTime = new Date(`${selectedDate}T${selectedTime}:00`).toISOString();
 
-    const { error } = await supabase.from("bookings").insert({
+    const { data, error } = await supabase.from("bookings").insert({
       staff_id: staffId,
       client_email: email,
       start_time: startTime,
-    });
+    }).select("reference_number").single();
 
-    if (!error) {
+    if (!error && data) {
+      setBookingRef((data as any).reference_number || "");
       setStep("done");
     }
     setSubmitting(false);
@@ -231,10 +234,22 @@ const PublicBookingPage = () => {
             )}
 
             {selectedDate && selectedTime && email && (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={agreedToPolicy}
+                    onChange={(e) => setAgreedToPolicy(e.target.checked)}
+                    className="mt-1 h-4 w-4 rounded-sm border border-border accent-foreground"
+                  />
+                  <span className="font-body text-xs text-muted-foreground leading-relaxed">
+                    I agree to the 24-hour cancellation policy. Deposits are only refundable if cancelled more than 24 hours before the appointment.
+                  </span>
+                </label>
                 <button
                   onClick={() => setStep("confirm")}
-                  className="font-display text-sm uppercase tracking-wider px-8 py-4 bg-foreground text-background rounded-sm hover:opacity-90 transition-opacity"
+                  disabled={!agreedToPolicy}
+                  className="font-display text-sm uppercase tracking-wider px-8 py-4 bg-foreground text-background rounded-sm hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Continue to Deposit
                 </button>
@@ -287,15 +302,30 @@ const PublicBookingPage = () => {
               <span className="text-accent-foreground font-display text-xl">✓</span>
             </div>
             <h2 className="font-display text-2xl font-bold mb-3">Booking Confirmed</h2>
-            <p className="font-body text-sm text-muted-foreground mb-8 max-w-sm mx-auto">
+            {bookingRef && (
+              <p className="font-mono text-2xl font-bold tracking-wider text-foreground mb-4">
+                {bookingRef}
+              </p>
+            )}
+            <p className="font-body text-sm text-muted-foreground mb-4 max-w-sm mx-auto">
               A confirmation has been sent to {email}. Your deposit of CHF {depositCHF} has been processed.
             </p>
-            <Link
-              to="/"
-              className="font-display text-sm uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors"
-            >
-              ← Back to Sureslot
-            </Link>
+            {bookingRef && (
+              <Link
+                to={`/manage/${bookingRef}`}
+                className="font-body text-sm text-muted-foreground underline hover:text-foreground transition-colors mb-8 inline-block"
+              >
+                Manage or cancel this booking →
+              </Link>
+            )}
+            <div className="mt-6">
+              <Link
+                to="/"
+                className="font-display text-sm uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors"
+              >
+                ← Back to Sureslot
+              </Link>
+            </div>
           </motion.div>
         )}
       </div>
