@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Calendar, LogOut, ExternalLink, RefreshCw, Download } from "lucide-react";
+import { Calendar, ExternalLink, RefreshCw, Download } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import sureslotWordmark from "@/assets/sureslot-wordmark.png";
+import DashboardLayout from "@/components/DashboardLayout";
 
 const DashboardPage = () => {
   const navigate = useNavigate();
