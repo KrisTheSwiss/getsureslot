@@ -1,6 +1,8 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Shield, Clock, CreditCard, Calendar } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import sureslotWordmark from "@/assets/sureslot-wordmark.png";
 
 const features = [
@@ -27,6 +29,21 @@ const features = [
 ];
 
 const Index = () => {
+  const [firstStaffId, setFirstStaffId] = useState<string | null>(null);
+
+  useEffect(() => {
+    supabase
+      .from("staff")
+      .select("id")
+      .order("created_at", { ascending: true })
+      .limit(1)
+      .then(({ data }) => {
+        if (data?.length) setFirstStaffId(data[0].id);
+      });
+  }, []);
+
+  const demoLink = firstStaffId ? `/book/${firstStaffId}` : "/demo";
+
   return (
     <div className="min-h-screen bg-background">
       {/* Nav */}
@@ -37,7 +54,7 @@ const Index = () => {
           </Link>
           <div className="flex items-center gap-6">
             <Link
-              to="/demo"
+              to={demoLink}
               className="font-body text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               Demo
@@ -147,7 +164,7 @@ const Index = () => {
                 Sureslot allows you to manage 2 to 20+ artists under one roof while ensuring every professional gets paid directly.
               </p>
               <Link
-                to="/demo"
+                to={demoLink}
                 className="inline-block font-display text-sm px-8 py-4 bg-accent-brand text-background rounded-sm hover:opacity-90 transition-opacity tracking-wide uppercase"
               >
                 Schedule a White-Glove Onboarding
@@ -197,7 +214,7 @@ const Index = () => {
             Set up your booking flow in minutes and stop losing your best hours to no-shows.
           </p>
           <Link
-            to="/demo"
+            to={demoLink}
             className="inline-block font-display text-sm px-8 py-4 bg-foreground text-background rounded-sm hover:opacity-90 transition-opacity tracking-wide uppercase"
           >
             View Demo Salon
