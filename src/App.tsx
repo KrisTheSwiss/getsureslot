@@ -30,6 +30,7 @@ const App = () => (
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/login" element={<AuthPage />} />
+          <Route path="/manage/:referenceNumber" element={<ManageBookingPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
