@@ -47,16 +47,17 @@ const ManageBookingPage = () => {
     if (!booking || !canCancel) return;
     setCancelling(true);
 
-    // TODO: Trigger Stripe refund via edge function (deposit minus $10 platform fee)
-    // For now, update status to cancelled
-    const { error } = await supabase
-      .from("bookings")
-      .update({ status: "cancelled" as any })
-      .eq("id", booking.id);
+    try {
+      const res = await supabase.functions.invoke("process-refund", {
+        body: { bookingId: booking.id },
+      });
 
-    if (!error) {
-      setCancelled(true);
-      setBooking({ ...booking, status: "cancelled" });
+      if (res.data?.success) {
+        setCancelled(true);
+        setBooking({ ...booking, status: "cancelled" });
+      }
+    } catch {
+      // silent
     }
     setCancelling(false);
   };
