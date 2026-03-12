@@ -29,6 +29,21 @@ const features = [
 ];
 
 const Index = () => {
+  const [firstStaffId, setFirstStaffId] = useState<string | null>(null);
+
+  useEffect(() => {
+    supabase
+      .from("staff")
+      .select("id")
+      .order("created_at", { ascending: true })
+      .limit(1)
+      .then(({ data }) => {
+        if (data?.length) setFirstStaffId(data[0].id);
+      });
+  }, []);
+
+  const demoLink = firstStaffId ? `/book/${firstStaffId}` : "/demo";
+
   return (
     <div className="min-h-screen bg-background">
       {/* Nav */}
