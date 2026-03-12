@@ -194,6 +194,9 @@ const DashboardPage = () => {
                     {upcomingBookings.map((b) => (
                       <div key={b.id} className="bg-card border border-border p-4 rounded-sm flex items-center justify-between">
                         <div>
+                          {(b as any).reference_number && (
+                            <p className="font-mono text-xs text-muted-foreground mb-0.5">{(b as any).reference_number}</p>
+                          )}
                           <p className="font-display text-sm font-semibold">
                             {new Date(b.start_time).toLocaleDateString()} at{" "}
                             {new Date(b.start_time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
