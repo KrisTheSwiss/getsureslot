@@ -19,6 +19,7 @@ export type Database = {
           client_email: string
           created_at: string
           id: string
+          reference_number: string | null
           staff_id: string
           start_time: string
           status: Database["public"]["Enums"]["booking_status"]
@@ -29,6 +30,7 @@ export type Database = {
           client_email: string
           created_at?: string
           id?: string
+          reference_number?: string | null
           staff_id: string
           start_time: string
           status?: Database["public"]["Enums"]["booking_status"]
@@ -39,6 +41,7 @@ export type Database = {
           client_email?: string
           created_at?: string
           id?: string
+          reference_number?: string | null
           staff_id?: string
           start_time?: string
           status?: Database["public"]["Enums"]["booking_status"]
@@ -131,7 +134,7 @@ export type Database = {
       generate_unique_booking_ref: { Args: never; Returns: string }
     }
     Enums: {
-      booking_status: "pending" | "confirmed" | "no_show" | "paid"
+      booking_status: "pending" | "confirmed" | "no_show" | "paid" | "cancelled"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -259,7 +262,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      booking_status: ["pending", "confirmed", "no_show", "paid"],
+      booking_status: ["pending", "confirmed", "no_show", "paid", "cancelled"],
     },
   },
 } as const
