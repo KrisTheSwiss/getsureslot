@@ -55,6 +55,35 @@ const DashboardPage = () => {
     navigate("/login");
   };
 
+  const handleExportCSV = () => {
+    if (!bookings.length || !staffProfile) return;
+    const PLATFORM_FEE_CENTS = 1000;
+    const headers = ["Date", "Booking_Ref", "Salon_Name", "Artist_Name", "Client_Email", "Deposit_Amount", "Sureslot_Fee", "Net_Payout"];
+    const rows = bookings.map((b) => {
+      const deposit = staffProfile.deposit_amount_cents / 100;
+      const fee = PLATFORM_FEE_CENTS / 100;
+      const net = deposit - fee;
+      return [
+        new Date(b.start_time).toLocaleDateString(),
+        (b as any).reference_number || "—",
+        salonName,
+        staffProfile.name,
+        b.client_email,
+        deposit.toFixed(2),
+        fee.toFixed(2),
+        net.toFixed(2),
+      ].join(",");
+    });
+    const csv = [headers.join(","), ...rows].join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `sureslot-export-${new Date().toISOString().split("T")[0]}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
