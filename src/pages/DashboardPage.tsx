@@ -8,6 +8,7 @@ import sureslotWordmark from "@/assets/sureslot-wordmark.png";
 const DashboardPage = () => {
   const navigate = useNavigate();
   const [staffProfile, setStaffProfile] = useState<any>(null);
+  const [salonName, setSalonName] = useState("");
   const [bookings, setBookings] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
