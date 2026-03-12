@@ -15,6 +15,8 @@ const PublicBookingPage = () => {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [email, setEmail] = useState("");
+  const [agreedToPolicy, setAgreedToPolicy] = useState(false);
+  const [bookingRef, setBookingRef] = useState("");
   const [step, setStep] = useState<"select" | "confirm" | "done">("select");
   const [submitting, setSubmitting] = useState(false);
   const [busySlots, setBusySlots] = useState<string[]>([]);
