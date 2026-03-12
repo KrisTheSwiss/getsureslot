@@ -161,7 +161,7 @@ const BookingPage = () => {
                 <div className="swiss-divider" />
                 <div className="flex justify-between font-display font-semibold">
                   <span>Deposit Required</span>
-                  <span>CHF {(staff.depositCents / 100).toFixed(0)}</span>
+                  <span>${(staff.depositCents / 100).toFixed(0)}</span>
                 </div>
               </div>
               <div className="flex items-start gap-2 text-xs text-muted-foreground">
