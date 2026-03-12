@@ -82,9 +82,11 @@ const DashboardPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <p className="font-body text-sm text-muted-foreground">Loading…</p>
-      </div>
+      <DashboardLayout>
+        <div className="flex items-center justify-center py-20">
+          <p className="font-body text-sm text-muted-foreground">Loading…</p>
+        </div>
+      </DashboardLayout>
     );
   }
 
