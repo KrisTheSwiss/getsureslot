@@ -128,7 +128,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      generate_unique_booking_ref: { Args: never; Returns: string }
     }
     Enums: {
       booking_status: "pending" | "confirmed" | "no_show" | "paid"
