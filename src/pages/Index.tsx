@@ -94,8 +94,7 @@ const Index = () => {
               </h1>
               <div className="swiss-divider mb-8" />
               <p className="font-body text-base text-muted-foreground max-w-md leading-relaxed">
-                A no-show doesn&apos;t just cost you a deposit; it steals an hour of your life that you can
-                never get back.
+                A deposit protects your wallet, but a no-show still steals an hour of your life. We are here to protect both.
               </p>
             </motion.div>
 
