@@ -13,6 +13,7 @@ import DashboardStaffPage from "./pages/DashboardStaffPage";
 import AuthPage from "./pages/AuthPage";
 import ManageBookingPage from "./pages/ManageBookingPage";
 import BookingSuccessPage from "./pages/BookingSuccessPage";
+import OnboardingPage from "./pages/OnboardingPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
