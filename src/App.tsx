@@ -13,6 +13,7 @@ import DashboardStaffPage from "./pages/DashboardStaffPage";
 import AuthPage from "./pages/AuthPage";
 import ManageBookingPage from "./pages/ManageBookingPage";
 import BookingSuccessPage from "./pages/BookingSuccessPage";
+import OnboardingPage from "./pages/OnboardingPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/login" element={<AuthPage />} />
           <Route path="/manage/:referenceNumber" element={<ManageBookingPage />} />
           <Route path="/booking-success" element={<BookingSuccessPage />} />
+          <Route path="/onboarding" element={<OnboardingPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
