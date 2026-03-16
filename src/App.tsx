@@ -15,6 +15,7 @@ import ManageBookingPage from "./pages/ManageBookingPage";
 import BookingSuccessPage from "./pages/BookingSuccessPage";
 import OnboardingPage from "./pages/OnboardingPage";
 import TermsPage from "./pages/TermsPage";
+import PrivacyPage from "./pages/PrivacyPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
           <Route path="/booking-success" element={<BookingSuccessPage />} />
           <Route path="/onboarding" element={<OnboardingPage />} />
           <Route path="/terms" element={<TermsPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

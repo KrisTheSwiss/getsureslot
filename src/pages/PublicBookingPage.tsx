@@ -258,11 +258,15 @@ const PublicBookingPage = () => {
                     className="mt-1 h-4 w-4 rounded-sm border border-border accent-foreground"
                   />
                   <span className="font-body text-xs text-muted-foreground leading-relaxed">
-                    By clicking Pay, I agree to the{" "}
+                    I agree to the{" "}
                     <Link to="/terms" target="_blank" className="underline hover:text-foreground">
                       Terms of Service
+                    </Link>{" "}
+                    and{" "}
+                    <Link to="/privacy" target="_blank" className="underline hover:text-foreground">
+                      Privacy Policy
                     </Link>
-                    , including the 24-hour cancellation policy and the non-refundable $10 service fee.
+                    , including the non-refundable $10 service fee and 24-hour cancellation policy.
                   </span>
                 </label>
                 <button
