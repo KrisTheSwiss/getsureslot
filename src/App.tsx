@@ -39,6 +39,7 @@ const App = () => (
           <Route path="/manage/:referenceNumber" element={<ManageBookingPage />} />
           <Route path="/booking-success" element={<BookingSuccessPage />} />
           <Route path="/onboarding" element={<OnboardingPage />} />
+          <Route path="/terms" element={<TermsPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

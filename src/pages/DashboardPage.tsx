@@ -224,6 +224,13 @@ const DashboardPage = () => {
             </>
           )}
         </motion.div>
+
+        {/* Support / Contact */}
+        <div className="mt-16 pt-8 border-t border-border">
+          <p className="font-body text-[11px] text-muted-foreground/70 leading-relaxed">
+            SureSlot is a service provided by Fonque LLC. Registered Address: 3400 Cottage Way, Ste G2 #23479, Sacramento, CA 95825.
+          </p>
+        </div>
       </div>
     </DashboardLayout>
   );
