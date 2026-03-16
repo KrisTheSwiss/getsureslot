@@ -258,7 +258,11 @@ const PublicBookingPage = () => {
                     className="mt-1 h-4 w-4 rounded-sm border border-border accent-foreground"
                   />
                   <span className="font-body text-xs text-muted-foreground leading-relaxed">
-                    I agree to the 24-hour cancellation policy. Deposits are only refundable if cancelled more than 24 hours before the appointment.
+                    By clicking Pay, I agree to the{" "}
+                    <Link to="/terms" target="_blank" className="underline hover:text-foreground">
+                      Terms of Service
+                    </Link>
+                    , including the 24-hour cancellation policy and the non-refundable $10 service fee.
                   </span>
                 </label>
                 <button

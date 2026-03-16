@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Shield, Clock, CreditCard, Calendar } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import sureslotWordmark from "@/assets/sureslot-wordmark.png";
+import GlobalFooter from "@/components/GlobalFooter";
 
 const features = [
   {
@@ -221,15 +222,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-border py-12 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <img src={sureslotWordmark} alt="Sureslot logo" className="h-7 w-auto" loading="lazy" />
-          <p className="font-body text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Sureslot. Built to protect your time.
-          </p>
-        </div>
-      </footer>
+      <GlobalFooter />
     </div>
   );
 };
