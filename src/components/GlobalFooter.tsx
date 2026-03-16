@@ -10,6 +10,10 @@ const GlobalFooter = () => (
           Terms of Service
         </Link>
         <span>·</span>
+        <Link to="/privacy" className="hover:text-foreground transition-colors">
+          Privacy Policy
+        </Link>
+        <span>·</span>
         <span>© {new Date().getFullYear()} Sureslot</span>
       </div>
       <p className="font-body text-[11px] text-muted-foreground/70 text-center max-w-lg leading-relaxed">
