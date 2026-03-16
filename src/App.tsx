@@ -15,6 +15,7 @@ import ManageBookingPage from "./pages/ManageBookingPage";
 import BookingSuccessPage from "./pages/BookingSuccessPage";
 import OnboardingPage from "./pages/OnboardingPage";
 import TermsPage from "./pages/TermsPage";
+import PrivacyPage from "./pages/PrivacyPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
