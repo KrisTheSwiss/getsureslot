@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Calendar, ExternalLink, RefreshCw, Download } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import DashboardLayout from "@/components/DashboardLayout";
+import ReminderStatusSection from "@/components/ReminderStatusSection";
 
 const DashboardPage = () => {
   const navigate = useNavigate();
