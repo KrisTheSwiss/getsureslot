@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Calendar, ExternalLink, RefreshCw, Download } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import DashboardLayout from "@/components/DashboardLayout";
+import ReminderStatusSection from "@/components/ReminderStatusSection";
 
 const DashboardPage = () => {
   const navigate = useNavigate();
@@ -167,6 +168,9 @@ const DashboardPage = () => {
                   <p className="font-body text-xs text-muted-foreground uppercase tracking-wider">Deposit Amount</p>
                 </div>
               </div>
+
+              {/* Reminders */}
+              <ReminderStatusSection staffId={staffProfile.id} />
 
               {/* Upcoming Bookings */}
               <section className="mb-12">
