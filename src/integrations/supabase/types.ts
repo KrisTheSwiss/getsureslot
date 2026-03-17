@@ -145,6 +145,41 @@ export type Database = {
         }
         Relationships: []
       }
+      reminder_logs: {
+        Row: {
+          booking_id: string
+          error_message: string | null
+          id: string
+          reminder_type: string
+          sent_at: string
+          status: string
+        }
+        Insert: {
+          booking_id: string
+          error_message?: string | null
+          id?: string
+          reminder_type: string
+          sent_at?: string
+          status?: string
+        }
+        Update: {
+          booking_id?: string
+          error_message?: string | null
+          id?: string
+          reminder_type?: string
+          sent_at?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reminder_logs_booking_id_fkey"
+            columns: ["booking_id"]
+            isOneToOne: false
+            referencedRelation: "bookings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       salons: {
         Row: {
           created_at: string
