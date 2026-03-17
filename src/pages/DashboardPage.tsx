@@ -169,6 +169,9 @@ const DashboardPage = () => {
                 </div>
               </div>
 
+              {/* Reminders */}
+              <ReminderStatusSection staffId={staffProfile.id} />
+
               {/* Upcoming Bookings */}
               <section className="mb-12">
                 <h2 className="font-display text-lg font-semibold mb-6">Upcoming Bookings</h2>
